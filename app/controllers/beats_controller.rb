@@ -5,7 +5,7 @@ class BeatsController < ApplicationController
   end
 
   def create
-    name = params[:id]
+    name = params[:id].gsub(' ', '-')
 
     channel = WebsocketRails[name]
     channel.trigger(:heartbeat, { socks: 'pants' })

@@ -16,13 +16,14 @@
 //= require websocket_rails/main
 
 dispatcher = new WebSocketRails('localhost:3000/websocket');
-var channelName = window.location.pathname.slice(1);
+var path = window.location.pathname;
+var channelName = decodeURI(path.slice(1)).replace(/ /g, '-');
 var channel = dispatcher.subscribe(channelName);
 
 $(document).ready(function () {
   heart = $('#heart');
   heart.click(function () {
-    $.post('/' + channelName);
+    $.post(path);
   });
 });
 
