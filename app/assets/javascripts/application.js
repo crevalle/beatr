@@ -22,7 +22,7 @@ var debug = function debug(data) {
 
 dispatcher = new WebSocketRails('localhost:3000/websocket');
 
-var channelName = window.location.pathname;
+var channelName = window.location.pathname.slice(1); // remove leading slash
 console.log(channelName);
 
 var channel = dispatcher.subscribe(channelName);
