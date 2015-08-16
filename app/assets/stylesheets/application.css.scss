@@ -14,20 +14,26 @@
  *= require_self
  */
 
-body {
+
+body, html{
+  height: 100%;
   text-align: center;
+  margin: 0;
+  font-family: helvetica;
 }
 
-#heart {
-  width: 300px;
-  height: 300px;
-  -webkit-transition: width 0.25s ease, height 0.25s ease;
-  -moz-transition: width 0.25s ease, height 0.25s ease;
-  -o-transition: width 0.25s ease, height 0.25s ease;
-  transition: width 0.25s ease, height 0.25s ease;
-}
+.beat-container {
+  #heart {
+    width: 300px;
+    height: 300px;
+    -webkit-transition: width 0.25s ease, height 0.25s ease;
+    -moz-transition: width 0.25s ease, height 0.25s ease;
+    -o-transition: width 0.25s ease, height 0.25s ease;
+    transition: width 0.25s ease, height 0.25s ease;
 
-#heart.beat {
-  width: 400px;
-  height: 400px;
+    &.beat {
+      width: 400px;
+      height: 400px;
+    }
+  }
 }
