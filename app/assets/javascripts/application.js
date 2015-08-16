@@ -16,16 +16,19 @@
 //= require websocket_rails/main
 
 var debug = function debug(data) {
+  console.log('channel event received: ' + data);
   debugger
 }
 
 dispatcher = new WebSocketRails('localhost:3000/websocket');
+
+debugger
+var channel = dispatcher.subscribe('gorby');
 
 dispatcher.on_open = function(data) {
   console.log('Connection has been established: ', data);
   debugger
 }
 
-dispatcher.trigger('heartbeat', {foo: 'bar'}, debug, debug)
+channel.bind('heartbeat', debug)
 
-dispatcher.bind('heartbeat', debug)
