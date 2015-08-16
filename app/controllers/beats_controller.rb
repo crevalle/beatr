@@ -1,7 +1,13 @@
-class BeatsController < WebsocketRails::BaseController
+class BeatsController < ApplicationController
 
-  def initialize_session
-    controller_store[:message_count] = 0
+  def show
+    @beat_name = params[:id]
   end
 
+  def create
+    channel = params[:id]
+    WebsocketRails[channel].trigger(:heartbeat, { socks: 'pants' })
+    render text: 'got it'
+  end
 end
+
