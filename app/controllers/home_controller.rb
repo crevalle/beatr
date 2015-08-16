@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
   def listen
+    @beat_name = params[:id]
     render 'show'
   end
 
