@@ -21,6 +21,9 @@ var channel = dispatcher.subscribe(channelName);
 
 $(document).ready(function () {
   heart = $('#heart');
+  heart.click(function () {
+    $.post('/' + channelName);
+  });
 });
 
 var beating = false
