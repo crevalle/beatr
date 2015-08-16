@@ -13,6 +13,7 @@ gem 'websocket-rails'
 
 group :development, :test do
   gem 'byebug'
+  gem 'httparty'
   gem 'pry'
   gem 'looksee'
   gem 'spring'
