@@ -19,14 +19,19 @@ dispatcher = new WebSocketRails('localhost:3000/websocket');
 var channelName = window.location.pathname.slice(1);
 var channel = dispatcher.subscribe(channelName);
 
+$(document).ready(function () {
+  heart = $('#heart');
+});
 
+var beating = false
 channel.bind('heartbeat', function (data) {
-  console.log(data);
-  var heart = $('#heart');
-
-  heart.addClass('beat');
-  setTimeout(function () {
-    heart.removeClass('beat');
-  }, 250);
+  if (!beating) {
+    beating = true;
+    heart.addClass('beat');
+    setTimeout(function () {
+      heart.removeClass('beat');
+      beating = false;
+    }, 250);
+  }
 });
 
