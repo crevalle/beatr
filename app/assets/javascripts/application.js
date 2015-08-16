@@ -15,21 +15,12 @@
 //= require_tree .
 //= require websocket_rails/main
 
-var debug = function debug(data) {
-  console.log('channel event received: ' + data);
-}
-
-
 dispatcher = new WebSocketRails('localhost:3000/websocket');
-
-var channelName = window.location.pathname.slice(1); // remove leading slash
-console.log(channelName);
-
+var channelName = window.location.pathname.slice(1);
 var channel = dispatcher.subscribe(channelName);
 
-dispatcher.on_open = function(data) {
-  console.log('Connection has been established: ', data);
-}
-
-channel.bind('heartbeat', debug)
+channel.bind('heartbeat', function (data) {
+  console.log(data);
+  debugger
+});
 
