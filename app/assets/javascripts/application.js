@@ -19,8 +19,14 @@ dispatcher = new WebSocketRails('localhost:3000/websocket');
 var channelName = window.location.pathname.slice(1);
 var channel = dispatcher.subscribe(channelName);
 
+
 channel.bind('heartbeat', function (data) {
   console.log(data);
-  debugger
+  var heart = $('#heart');
+
+  heart.addClass('beat');
+  setTimeout(function () {
+    heart.removeClass('beat');
+  }, 250);
 });
 
