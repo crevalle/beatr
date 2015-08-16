@@ -6,8 +6,10 @@ class BeatsController < ApplicationController
 
   def create
     channel = params[:id]
+    @beat = Beat.create name: channel, ip: request.remote_ip
+
     WebsocketRails[channel].trigger(:heartbeat, { socks: 'pants' })
-    render text: 'got it'
+    render json: @beat
   end
 end
 
