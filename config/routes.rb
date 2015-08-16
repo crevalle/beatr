@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#show'
+  root 'home#index'
   match "/websocket", to: WebsocketRails::ConnectionManager.new, via: [:get, :post]
   get '/:id' => 'home#listen'
   post '/:id' => 'home#create'
