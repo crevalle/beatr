@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
 
-  def show
-
+  def listen
+    render 'show'
   end
 
-  def socks
+  def create
     channel = params[:id]
     WebsocketRails[channel].trigger(:heartbeat, { socks: 'pants' })
     render text: 'got it'

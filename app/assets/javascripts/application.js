@@ -17,17 +17,18 @@
 
 var debug = function debug(data) {
   console.log('channel event received: ' + data);
-  debugger
 }
+
 
 dispatcher = new WebSocketRails('localhost:3000/websocket');
 
-debugger
-var channel = dispatcher.subscribe('gorby');
+var channelName = window.location.pathname;
+console.log(channelName);
+
+var channel = dispatcher.subscribe(channelName);
 
 dispatcher.on_open = function(data) {
   console.log('Connection has been established: ', data);
-  debugger
 }
 
 channel.bind('heartbeat', debug)

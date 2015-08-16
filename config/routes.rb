@@ -4,8 +4,9 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#show'
-  match "/websocket", to: WebsocketRails::ConnectionManager.new
-  get '/:id' => 'home#socks'
+  match "/websocket", to: WebsocketRails::ConnectionManager.new, via: [:get, :post]
+  get '/:id' => 'home#listen'
+  post '/:id' => 'home#create'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
