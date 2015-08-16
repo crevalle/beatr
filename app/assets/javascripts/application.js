@@ -12,7 +12,20 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 //= require websocket_rails/main
 
+var debug = function debug(data) {
+  debugger
+}
+
+dispatcher = new WebSocketRails('localhost:3000/websocket');
+
+dispatcher.on_open = function(data) {
+  console.log('Connection has been established: ', data);
+  debugger
+}
+
+dispatcher.trigger('heartbeat', {foo: 'bar'}, debug, debug)
+
+dispatcher.bind('heartbeat', debug)
