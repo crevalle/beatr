@@ -4,8 +4,4 @@ class BeatsController < WebsocketRails::BaseController
     controller_store[:message_count] = 0
   end
 
-  def create
-
-  end
-
 end
