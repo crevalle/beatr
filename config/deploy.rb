@@ -45,11 +45,11 @@ namespace :deploy do
   end
 
   task :start, :roles => :app do
-    run "/etc/init.d/unicorn start"
+    # run "/etc/init.d/unicorn start"
   end
 
   task :stop, :roles => :app do
-    run "/etc/init.d/unicorn stop"
+    # run "/etc/init.d/unicorn stop"
   end
 
   task :restart, :roles => :app do
