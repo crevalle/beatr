@@ -28,6 +28,7 @@ WebsocketRails.setup do |config|
   # Will not be used unless standalone or synchronization mode
   # is enabled.
   if Rails.env.production?
+    require 'yaml'
     redis = YAML.load_file('config/redis.yml')
     config.redis_options = { host: redis['host'], port: redis['port'] }
 
