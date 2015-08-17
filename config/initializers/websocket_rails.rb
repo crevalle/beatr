@@ -15,12 +15,11 @@ WebsocketRails.setup do |config|
   # Change to true to enable standalone server mode
   # Start the standalone server with rake websocket_rails:start_server
   # * Requires Redis
-  config.standalone = true
+  # config.standalone = true
 
   # Change to true to enable channel synchronization between
   # multiple server instances.
   # * Requires Redis.
-  config.synchronize = true
 
   # Prevent Thin from daemonizing (default is true)
   # config.daemonize = false
@@ -28,14 +27,14 @@ WebsocketRails.setup do |config|
   # Uncomment and edit to point to a different redis instance.
   # Will not be used unless standalone or synchronization mode
   # is enabled.
-  redis_options = if Rails.env.production?
-                    uri = URI.parse ENV['REDISTOGO_URL']
-                    { host: uri.host, port: uri.port, user: uri.user, password: uri.password }
-                  else
-                    {}
-                  end
-
-  config.redis_options = redis_options
+  if Rails.env.production?
+    uri = URI.parse ENV['REDISTOGO_URL']
+    config.synchronize = true
+    config.standalone = true
+    config.redis_options = { host: uri.host, port: uri.port, user: uri.user, password: uri.password }
+  else
+    config.standalone = false
+  end
 
   # By default, all subscribers in to a channel will be removed
   # when that channel is made private. If you don't wish active
