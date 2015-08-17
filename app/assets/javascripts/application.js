@@ -54,6 +54,7 @@ $(document).ready(function () {
   });
 
   channel.bind('heartbeat', function (data) {
+    console.log(data);
     Beatr.beats += 1;
     if (Beatr.resting) {
       Beatr.beat()
