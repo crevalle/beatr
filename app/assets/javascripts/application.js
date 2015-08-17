@@ -19,24 +19,45 @@ dispatcher = new WebSocketRails('localhost:3000/websocket');
 var path = window.location.pathname;
 var channelName = decodeURI(path.slice(1)).replace(/ /g, '-');
 var channel = dispatcher.subscribe(channelName);
+var animationTime = 250;
+
+Beatr = {
+  resting: true,
+  beats: 0,
+  beat: function beat(callback) {
+    Beatr.resting = false;
+    Beatr.grow();
+  },
+  grow: function grow() {
+    Beatr.heart.addClass('beat');
+    setTimeout(Beatr.shrink, animationTime);
+  },
+  shrink: function shink() {
+    Beatr.heart.removeClass('beat');
+    setTimeout(Beatr.afterBeat, animationTime);
+  },
+  afterBeat: function afterBeat() {
+    Beatr.beats -= 1;
+    if (Beatr.beats > 0) {
+      Beatr.beat();
+    } else {
+      Beatr.resting = true;
+    }
+  }
+}
 
 $(document).ready(function () {
-  heart = $('#heart');
-  heart.click(function () {
+  Beatr.heart = $('#heart');
+
+  Beatr.heart.click(function () {
     $.post(path);
   });
-});
 
-var beating = false
-channel.bind('heartbeat', function (data) {
-  console.log('got beat' + data);
-  if (!beating) {
-    beating = true;
-    heart.addClass('beat');
-    setTimeout(function () {
-      heart.removeClass('beat');
-      beating = false;
-    }, 250);
-  }
+  channel.bind('heartbeat', function (data) {
+    Beatr.beats += 1;
+    if (Beatr.resting) {
+      Beatr.beat()
+    }
+  });
 });
 
