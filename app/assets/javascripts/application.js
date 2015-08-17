@@ -29,6 +29,7 @@ $(document).ready(function () {
 
 var beating = false
 channel.bind('heartbeat', function (data) {
+  console.log('got beat' + data);
   if (!beating) {
     beating = true;
     heart.addClass('beat');
