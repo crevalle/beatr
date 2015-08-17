@@ -1,5 +1,8 @@
 %h3 currently listening to #{@beat_name}...
 
 .beat-container
-  = image_tag '8-bit-heart.png', id: 'heart'
+  - if @beat_name == 'gorbypuff'
+    = image_tag 'gorbypuff.jpg', id: 'heart'
+  - else
+    = image_tag '8-bit-heart.png', id: 'heart'
 
