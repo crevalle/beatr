@@ -28,10 +28,11 @@ WebsocketRails.setup do |config|
   # Will not be used unless standalone or synchronization mode
   # is enabled.
   if Rails.env.production?
-    uri = URI.parse ENV['REDISTOGO_URL']
+    redis = YAML.load_file('config/redis.yml')
+    config.redis_options = { host: redis['host'], port: redis['port'] }
+
     config.synchronize = true
     config.standalone = true
-    config.redis_options = { host: uri.host, port: uri.port, user: uri.user, password: uri.password }
   else
     config.standalone = false
   end

@@ -74,8 +74,8 @@ end
 
 namespace :symlink do
   task :db, roles: :app do
-    run "ln -s #{shared_config_path}/database.yml #{release_path}/config/database.yml"
-    run "ln -s #{shared_config_path}/redis.yml #{release_path}/config/redis.yml"
+    run "ln -sf #{shared_config_path}/database.yml #{release_path}/config/database.yml"
+    run "ln -sf #{shared_config_path}/redis.yml #{release_path}/config/redis.yml"
   end
 end
 
