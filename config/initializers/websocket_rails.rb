@@ -29,7 +29,7 @@ WebsocketRails.setup do |config|
   # Will not be used unless standalone or synchronization mode
   # is enabled.
   redis_options = if Rails.env.production?
-                    uri = URI.parse url: ENV['REDISTOGO_URL'] }
+                    uri = URI.parse ENV['REDISTOGO_URL']
                     { host: uri.host, port: uri.port, user: uri.user, password: uri.password }
                   else
                     {}
