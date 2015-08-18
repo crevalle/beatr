@@ -31,6 +31,7 @@ set :bundle_dir,     ""
 set :bundle_flags,   "--system --quiet"
 set :bundle_without, [:test, :development]
 
+set :normalize_asset_timestamps, false # don't try to deal with public/images, public/javascripts, etc
 
 desc 'display SHA of last deploy'
 task :last_revision do
@@ -40,16 +41,16 @@ end
 
 namespace :deploy do
   namespace :assets do
-    # task :precompile do
-    # end
+    task :precompile do
+    end
   end
 
   task :start, :roles => :app do
-    # run "/etc/init.d/unicorn start"
+    run "cd #{current_release} && #{bundle_cmd} exec rake websocket_rails:start_server"
   end
 
   task :stop, :roles => :app do
-    # run "/etc/init.d/unicorn stop"
+    run "cd #{current_release} && #{bundle_cmd} exec rake websocket_rails:stop_server"
   end
 
   task :restart, :roles => :app do
