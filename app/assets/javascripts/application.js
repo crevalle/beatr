@@ -15,7 +15,7 @@
 //= require_tree .
 //= require websocket_rails/main
 
-var dispatcher = new WebSocketRails(window.location.host + '/websocket');
+var dispatcher = new WebSocketRails(window.location.host + ':3001/websocket');
 var path = window.location.pathname;
 var channelName = decodeURI(path.slice(1)).replace(/ /g, '-');
 var channel = dispatcher.subscribe(channelName);
