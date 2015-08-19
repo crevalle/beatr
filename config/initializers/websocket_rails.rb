@@ -24,6 +24,7 @@ WebsocketRails.setup do |config|
   # Prevent Thin from daemonizing (default is true)
   # config.daemonize = false
 
+    config.standalone = false
   # Uncomment and edit to point to a different redis instance.
   # Will not be used unless standalone or synchronization mode
   # is enabled.
@@ -33,11 +34,7 @@ WebsocketRails.setup do |config|
     config.redis_options = { host: redis['host'], port: redis['port'] }
 
     config.synchronize = true
-    config.standalone = true
-
     config.standalone_port = 3015
-  else
-    config.standalone = false
   end
 
   # By default, all subscribers in to a channel will be removed
