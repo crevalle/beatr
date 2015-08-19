@@ -21,6 +21,8 @@ var channelName = decodeURI(path.slice(1)).replace(/ /g, '-');
 var channel = dispatcher.subscribe(channelName);
 var animationTime = 250;
 
+console.log('connected to ' + dispatcher + ' with channel ' + channel);
+
 Beatr = {
   resting: true,
   beats: 0,
