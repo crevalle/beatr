@@ -42,15 +42,21 @@ end
 namespace :deploy do
   namespace :assets do
     task :precompile do
+      run <<-CMD.compact
+        cd -- #{latest_release.shellescape} &&
+          #{rake} RAILS_ENV=#{rails_env.to_s.shellescape} #{asset_env} assets:precompile
+      CMD
     end
   end
 
   task :start, :roles => :app do
     run "cd #{current_release} && #{bundle_cmd} exec rake websocket_rails:start_server"
+    # run '/etc/init.d/thin start'
   end
 
   task :stop, :roles => :app do
-    run "cd #{current_release} && #{bundle_cmd} exec rake websocket_rails:stop_server"
+    # run "cd #{current_release} && #{bundle_cmd} exec rake websocket_rails:stop_server"
+    # run '/etc/init.d/thin stop'
   end
 
   task :restart, :roles => :app do

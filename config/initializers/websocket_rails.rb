@@ -24,18 +24,24 @@ WebsocketRails.setup do |config|
   # Prevent Thin from daemonizing (default is true)
   # config.daemonize = false
 
-    config.standalone = false
   # Uncomment and edit to point to a different redis instance.
   # Will not be used unless standalone or synchronization mode
   # is enabled.
-  if Rails.env.production?
-    require 'yaml'
-    redis = YAML.load_file('config/redis.yml')
-    config.redis_options = { host: redis['host'], port: redis['port'] }
+  # if Rails.env.production?
+    # require 'yaml'
+    # redis = YAML.load_file('config/redis.yml')
+    # config.redis_options = { host: redis['host'], port: redis['port'] }
 
-    config.synchronize = true
-    config.standalone_port = 3015
-  end
+    # config.standalone = true
+    # # config.synchronize = true
+
+    # config.standalone_port = 3015
+  # else
+    # config.standalone = false
+  # end
+
+  config.standalone = true
+  config.standalone_port = 3015
 
   # By default, all subscribers in to a channel will be removed
   # when that channel is made private. If you don't wish active
