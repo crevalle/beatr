@@ -34,6 +34,8 @@ WebsocketRails.setup do |config|
 
     config.synchronize = true
     config.standalone = true
+
+    config.standalone_port = 3015
   else
     config.standalone = false
   end
