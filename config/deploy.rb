@@ -50,7 +50,7 @@ namespace :deploy do
   end
 
   task :start, :roles => :app do
-    run "cd #{current_release} && #{bundle_cmd} exec wsr -e production --daemon -p 3015 --pidfile #{shared_path}/pids/wsr.pid"
+    run "cd #{current_release} && #{bundle_cmd} exec wsr -e production --daemon -p 3015 --pidfile #{shared_path}/pids/wsr.pid --state #{shared_path}/tmp/"
     # run '/etc/init.d/thin start'
   end
 
