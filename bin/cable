@@ -1,0 +1,3 @@
+# /bin/bash
+bundle exec puma -p 3013 cable/config.ru
+

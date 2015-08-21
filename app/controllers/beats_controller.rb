@@ -7,12 +7,17 @@ class BeatsController < ApplicationController
   def create
     name = params[:id].gsub(' ', '-')
 
-    channel = WebsocketRails[name]
-    channel.trigger(:heartbeat, { socks: 'pants' })
+    b = ActionCable.server.broadcast 'beats', message: ''
 
-    @beat = Beat.create name: name, ip: request.remote_ip, subscriber_count: channel.subscribers.count
+    puts '*' * 20
+    puts b.inspect
 
-    render json: { message: 'ok' }
+    # channel = WebsocketRails[name]
+    # channel.trigger(:heartbeat, { socks: 'pants' })
+
+    # @beat = Beat.create name: name, ip: request.remote_ip, subscriber_count: channel.subscribers.count
+
+    head :ok
   end
 end
 
