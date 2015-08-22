@@ -1,6 +1,5 @@
-GIT
-  remote: git://github.com/rails/actioncable.git
-  revision: 6143352f8ffba303f0c7644be7573f6725554cb3
+PATH
+  remote: ~/git/actioncable
   specs:
     actioncable (0.0.3)
       actionpack (>= 4.2.0)
