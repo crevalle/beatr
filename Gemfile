@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.1'
 
-gem 'actioncable', path: '~/git/actioncable'
+gem 'actioncable', github: 'rails/actioncable'
 gem 'capistrano', '2.15.5'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'haml'
