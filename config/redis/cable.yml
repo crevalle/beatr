@@ -7,3 +7,6 @@ local: &local
 development: *local
 test: *local
 
+production:
+  :url: <%= ENV['BEATR_REDIS_URL'] %>
+
