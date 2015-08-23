@@ -8,8 +8,7 @@ String::capitalize = -> @charAt(0).toUpperCase() + @slice(1)
 @path = window.location.pathname
 @animationTime = 250
 
-# App.cable = Cable.createConsumer "ws://localhost:3013#{@path}"
-App.cable = Cable.createConsumer "ws://localhost:3013"
+App.cable = Cable.createConsumer gon.websocket_url
 
 Beatr =
   resting: true,
