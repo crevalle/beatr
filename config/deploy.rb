@@ -50,13 +50,14 @@ namespace :deploy do
   end
 
   task :start, :roles => :app do
-    run "cd #{current_release} && #{bundle_cmd} exec wsr -e production --daemon -p 3015 --pidfile #{shared_path}/pids/wsr.pid --state #{shared_path}/tmp/"
-    # run '/etc/init.d/thin start'
+    # run "cd #{current_release} && #{bundle_cmd} exec wsr -e production --daemon -p 3015 --pidfile #{shared_path}/pids/wsr.pid --state #{shared_path}/tmp/"
+    run '/etc/init.d/unicorn start beatr'
   end
 
   task :stop, :roles => :app do
     # run "cd #{current_release} && #{bundle_cmd} exec rake websocket_rails:stop_server"
     # run '/etc/init.d/thin stop'
+    run '/etc/init.d/unicorn stop beatr'
   end
 
   task :restart, :roles => :app do
