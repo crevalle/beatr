@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   private
 
   def set_websocket_url
-    gon.websocket_url = Rails.env.production? ? 'ws://beatr.crevalle.io:3013' : 'ws://localhost:3013'
+    gon.websocket_url = Rails.env.production? ? 'ws://ws.beatr.crevalle.io' : 'ws://localhost:3013'
   end
 end
