@@ -5,12 +5,6 @@ def production?
   ENV['RAILS_ENV'] == 'production'
 end
 
-# The directory to operate out of.
-#
-# The default is the current directory.
-#
-# directory '/u/apps/lolcat'
-
 # Load "path" as a rackup file.
 #
 # The default is "config.ru".
@@ -28,6 +22,8 @@ environment ENV['RAILS_ENV'] || 'development'
 #
 if production?
   daemonize true
+  directory '/home/desmond/apps/beatr/current/'
+
   # Redirect STDOUT and STDERR to files specified. The 3rd parameter
   # ("append") specifies whether the output is appended, the default is
   # "false".
@@ -37,7 +33,6 @@ end
 # Use "path" as the file to store the server info state. This is
 # used by "pumactl" to query and control the server.
   pidfile 'tmp/pids/puma.pid'
-  state_path 'tmp/pids/puma.state'
 
 # Disable request logging.
 # The default is "false".
@@ -56,7 +51,7 @@ end
 # The default is "tcp://0.0.0.0:9292".
 #
   bind 'tcp://0.0.0.0:3013'
-# bind 'unix:///var/run/puma.sock'
+  bind 'unix:///var/run/puma.sock'
 # bind 'unix:///var/run/puma.sock?umask=0111'
 # bind 'ssl://127.0.0.1:9292?key=path_to_key&cert=path_to_cert'
 

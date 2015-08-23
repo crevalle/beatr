@@ -50,12 +50,12 @@ namespace :deploy do
   end
 
   task :start, :roles => :app do
-    run "cd #{current_release} && #{bundle_cmd} exec pumactl start"
+    run '/etc/init.d/puma start'
     run '/etc/init.d/unicorn start beatr'
   end
 
   task :stop, :roles => :app do
-    run "cd #{current_release} && #{bundle_cmd} exec pumactl stop"
+    run '/etc/init.d/puma stop'
     run '/etc/init.d/unicorn stop beatr'
   end
 
