@@ -21,13 +21,23 @@ $darker-pink: #a94442;
 body, html{
   height: 100%;
   text-align: center;
-  /* margin: 0; */
   font-family: helvetica;
   margin: 0px;
   padding: 0px;
   background-color: $pink;
-  overflow: hidden;
 }
+
+a {
+  text-decoration: none;
+  color: $darker-pink;
+  &:hover {
+    color: $darker-pink;
+  }
+  &:active {
+    color: $darker-pink;
+  }
+}
+
 
 code {
   font-size: 16pt;
@@ -53,6 +63,23 @@ code {
   }
 }
 
+#tiny-heart {
+  width: 20px;
+  height: 20px;
+  -webkit-transition: width 0.10s linear, height 0.25s linear;
+  -moz-transition: width 0.10s linear, height 0.25s linear;
+  -o-transition: width 0.10s linear, height 0.25s linear;
+  transition: width 0.10s linear, height 0.25s linear;
+
+  &.beat {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+%span.tiny-heart {
+  width: 30px;
+}
 
 .box {
   /* min-height: 800px; */

@@ -16,10 +16,13 @@
   %body
     .box
       .background-box
+        %h1.logo= link_to 'Beatr', root_path
+
         = yield
 
         %footer
           %p
             made with
-            %span= image_tag '8-bit-heart.png', id: 'tiny-heart', size: '20x20'
-            by Crevalle and Steve Ellis
+            %span.tiny-heart= image_tag '8-bit-heart.png', id: 'tiny-heart', size: '20x20'
+            by #{link_to 'Crevalle Technologies', 'https://github.com/crevalle'} and #{link_to 'Steve Ellis', 'https://github.com/se3000'}
+

@@ -36,31 +36,21 @@ Beatr =
       Beatr.resting = true
 
 
-# Beatr =
-  # resting: true,
-  # beats: 0,
-  # animationTime: 250,
-  # beat: (callback) ->
-    # Beatr.resting = false
-    # Beatr.grow()
+LittleBeatr =
+  animationTime: 1000,
+  beat: (callback) ->
+    LittleBeatr.grow()
 
-  # topicName: =>
-    # return decodeURI(@path.slice(1)).replace(/ /g, '-')
+  grow: =>
+    LittleBeatr.heart.addClass('beat')
+    setTimeout(LittleBeatr.shrink, LittleBeatr.animationTime)
 
-  # grow: =>
-    # Beatr.heart.addClass('beat')
-    # setTimeout(Beatr.shrink, Beatr.animationTime)
+  shrink: =>
+    LittleBeatr.heart.removeClass('beat')
+    setTimeout(LittleBeatr.afterBeat, LittleBeatr.animationTime)
 
-  # shrink: =>
-    # Beatr.heart.removeClass('beat')
-    # setTimeout(Beatr.afterBeat, Beatr.animationTime)
-
-  # afterBeat: =>
-    # Beatr.beats -= 1
-    # if Beatr.beats > 0
-      # Beatr.beat()
-    # else
-      # Beatr.resting = true
+  afterBeat: =>
+    LittleBeatr.beat()
 
 App.beats = App.cable.subscriptions.create 'BeatsChannel',
   connected: ->
@@ -84,6 +74,8 @@ $(document).ready ->
   Beatr.heart.click ->
     $.post(@path)
 
+  LittleBeatr.heart = $('#tiny-heart')
+  LittleBeatr.beat()
 
 
 

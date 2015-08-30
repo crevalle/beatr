@@ -1,8 +1,8 @@
-%h1.logo currently listening to #{@beat_name}...
-
 .beat-container
   - if @beat_name == 'gorbypuff'
     = image_tag 'gorbypuff.jpg', id: 'heart'
   - else
     = image_tag '8-bit-heart.png', id: 'heart'
+
+%h3 currently listening to #{@beat_name}...
 
