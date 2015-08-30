@@ -1,0 +1,25 @@
+!!!
+
+%html
+  %head
+    %title= "Beatr #{(" - #{@beat_name}" if @beat_name)}"
+    = include_gon
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+
+    = stylesheet_link_tag '//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/railscasts.min.css'
+    = javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js'
+
+    = favicon_link_tag 'favicon.png'
+    = csrf_meta_tags
+
+  %body
+    .box
+      .background-box
+        = yield
+
+        %footer
+          %p
+            made with
+            %span= image_tag '8-bit-heart.png', id: 'tiny-heart', size: '20x20'
+            by Crevalle and Steve Ellis

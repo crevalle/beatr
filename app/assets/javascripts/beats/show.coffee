@@ -6,13 +6,13 @@
 String::capitalize = -> @charAt(0).toUpperCase() + @slice(1)
 
 @path = window.location.pathname
-@animationTime = 250
 
 App.cable = Cable.createConsumer gon.websocket_url
 
 Beatr =
   resting: true,
   beats: 0,
+  animationTime: 250,
   beat: (callback) ->
     Beatr.resting = false
     Beatr.grow()
@@ -22,11 +22,11 @@ Beatr =
 
   grow: =>
     Beatr.heart.addClass('beat')
-    setTimeout(Beatr.shrink, @animationTime)
+    setTimeout(Beatr.shrink, Beatr.animationTime)
 
   shrink: =>
     Beatr.heart.removeClass('beat')
-    setTimeout(Beatr.afterBeat, @animationTime)
+    setTimeout(Beatr.afterBeat, Beatr.animationTime)
 
   afterBeat: =>
     Beatr.beats -= 1
@@ -36,10 +36,37 @@ Beatr =
       Beatr.resting = true
 
 
+# Beatr =
+  # resting: true,
+  # beats: 0,
+  # animationTime: 250,
+  # beat: (callback) ->
+    # Beatr.resting = false
+    # Beatr.grow()
+
+  # topicName: =>
+    # return decodeURI(@path.slice(1)).replace(/ /g, '-')
+
+  # grow: =>
+    # Beatr.heart.addClass('beat')
+    # setTimeout(Beatr.shrink, Beatr.animationTime)
+
+  # shrink: =>
+    # Beatr.heart.removeClass('beat')
+    # setTimeout(Beatr.afterBeat, Beatr.animationTime)
+
+  # afterBeat: =>
+    # Beatr.beats -= 1
+    # if Beatr.beats > 0
+      # Beatr.beat()
+    # else
+      # Beatr.resting = true
 
 App.beats = App.cable.subscriptions.create 'BeatsChannel',
   connected: ->
+    console.log ("connected to #{gon.websocket_url}")
     @follow("#{Beatr.topicName()}")
+    console.log ("following #{Beatr.topicName()}")
 
   received: (data) ->
     console.log data
@@ -54,8 +81,9 @@ App.beats = App.cable.subscriptions.create 'BeatsChannel',
 $(document).ready ->
 
   Beatr.heart = $('#heart')
-
   Beatr.heart.click ->
     $.post(@path)
+
+
 
 

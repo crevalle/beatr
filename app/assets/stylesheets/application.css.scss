@@ -15,11 +15,26 @@
  */
 
 
+$pink: #F2DEDE;
+$darker-pink: #a94442;
+
 body, html{
   height: 100%;
   text-align: center;
-  margin: 0;
+  /* margin: 0; */
   font-family: helvetica;
+  margin: 0px;
+  padding: 0px;
+  background-color: $pink;
+  overflow: hidden;
+}
+
+code {
+  font-size: 16pt;
+}
+
+.logo {
+  padding-top: 20px;
 }
 
 .beat-container {
@@ -36,4 +51,38 @@ body, html{
       height: 400px;
     }
   }
+}
+
+
+.box {
+  /* min-height: 800px; */
+  margin: 40px;
+}
+
+.background-box {
+  border-radius: 10px;
+  height: 800px;
+  /* margin: 40px; */
+  background-color: white;
+  position: relative;
+}
+
+.instructions {
+  padding-top: 40px;
+  padding-left: 40px;
+  text-align: left;
+  width: 33%;
+
+  section {
+    margin-top: 20px;
+    padding: 0px 20px 20px 20px;
+    border: 1px $darker-pink solid;
+    border-radius: 5px;
+  }
+}
+
+footer {
+  padding-left: 20px;
+  position: absolute;
+  bottom: 0;
 }

@@ -1,5 +1,24 @@
-%h1 BEAT IT
+%h1.logo Beatr
 
-%p just beat it.
+%p Realtime heartbeats for anything.
 
+.instructions
+  %h3 How do I get started?
+  %section
+    %h4 Download the Beatr gem:
+    %p
+      %code.bash
+        $ gem install beatr
+
+  %section
+    %h4 Send your Beats:
+    %p
+      %code.ruby
+        Beatr.beat 'my-startup-signups'
+
+  %section
+    %h4 Watch the Beats live at your URL:
+    %p
+      %code.http
+        http://beatr.io/my-startup-signups
 
