@@ -54,8 +54,8 @@ LittleBeatr =
 
 App.beats = App.cable.subscriptions.create 'BeatsChannel',
   connected: ->
-    console.log ("connected to #{gon.websocket_url}")
     @follow("#{Beatr.topicName()}")
+    console.log ("connected to #{gon.websocket_url}")
     console.log ("following #{Beatr.topicName()}")
 
   received: (data) ->
