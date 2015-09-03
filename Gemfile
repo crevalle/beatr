@@ -17,6 +17,7 @@ gem 'unicorn'
 
 group :development, :test do
   gem 'byebug'
+  gem 'dotenv-rails'
   gem 'httparty'
   gem 'pry'
   gem 'looksee'
