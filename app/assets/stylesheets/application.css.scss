@@ -25,7 +25,6 @@ body, html{
   margin: 0px;
   padding: 0px;
   background-color: $pink;
-  overflow: hidden;
 }
 
 a {
@@ -99,7 +98,8 @@ code {
   padding-top: 40px;
   padding-left: 40px;
   text-align: left;
-  width: 33%;
+  width: 50%;
+  margin: 0 auto;
 
   section {
     margin-top: 20px;
@@ -107,10 +107,18 @@ code {
     border: 1px $darker-pink solid;
     border-radius: 5px;
   }
+
+  h3 {
+    margin-left: 20px;
+  }
 }
 
 footer {
   padding-left: 20px;
   position: absolute;
   bottom: 0;
+  width: 100%;
+  p {
+    text-align: center;
+  }
 }
