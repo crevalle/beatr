@@ -1,11 +1,11 @@
 class Broadcast
 
   def self.to channel, from = nil
-    subscriber_count = ActionCable.server.broadcast channel, message: ''
+    count = ActionCable.server.broadcast channel, message: ''
 
-    beat = Beat.create name: name, ip: from, subscriber_count: subscriber_count
+    beat = Beat.create name: name, ip: from, subscriber_count: count
 
-    ActionCable.server.broadcast 'admin', message: { channel: channel }
+    ActionCable.server.broadcast 'admin', message: { channel: channel, subscribers: { count: count } }
 
     beat
   end
