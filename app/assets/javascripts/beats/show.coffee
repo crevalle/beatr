@@ -55,10 +55,17 @@ LittleBeatr =
 App.beats = App.cable.subscriptions.create { channel: 'BeatsChannel', topic: "#{Beatr.topicName()}" },
   connected: ->
 
+  countSpan: -> $('span.subscriber-count')
+
+  updateSubscriberCount: (count) ->
+    @countSpan().html count
+
   received: (data) ->
-    Beatr.beats += 1
-    if Beatr.resting
-      Beatr.beat()
+    @updateSubscriberCount(data.subscribers.count)
+    if data.type == 'beat'
+      Beatr.beats += 1
+      if Beatr.resting
+        Beatr.beat()
 
 
 

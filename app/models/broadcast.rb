@@ -1,10 +1,32 @@
 class Broadcast
 
-  def self.to channel, from = nil
-    count = ActionCable.server.broadcast channel, message: ''
+  def initialize name
+    @name = name
+  end
 
-    ActionCable.server.broadcast 'admin', message: { channel: channel, subscribers: { count: count } } unless channel == 'admin'
+  def beat from = nil
+    Beat.create channel: channel, ip: from
 
-    Beat.create name: name, ip: from, subscriber_count: count
+    payload = { channel: @name, type: 'beat', subscribers: { count: channel.subscriber_count } }
+
+    broadcast @name, payload
+    broadcast 'admin', payload unless @name == 'admin'
+  end
+
+  def update_count
+    payload = { channel: @name, type: 'count', subscribers: { count: channel.subscriber_count } }
+    broadcast @name, payload
+  end
+
+
+  private
+
+  def broadcast topic, message
+    ActionCable.server.broadcast topic, message
+  end
+
+  def channel
+    @channel ||= Channel.fetch @name
   end
 end
+
