@@ -2,7 +2,8 @@ class Channel < ActiveRecord::Base
 
   has_many :beats
 
-  scope :trending, -> { order subscriber_count: :desc }
+  scope :trending, -> { with_subscribers.order subscriber_count: :desc }
+  scope :with_subscribers, -> { where.not subscriber_count: 0 }
 
   def self.fetch name
     return nil unless name.present?
