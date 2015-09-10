@@ -6,9 +6,7 @@ class BeatsController < ApplicationController
 
   def create
     name = params[:id].gsub(' ', '-')
-
     Broadcast.to name, request.remote_ip
-
     head :ok
   end
 end

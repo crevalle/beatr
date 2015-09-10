@@ -52,20 +52,14 @@ LittleBeatr =
   afterBeat: =>
     LittleBeatr.beat()
 
-App.beats = App.cable.subscriptions.create 'BeatsChannel',
+App.beats = App.cable.subscriptions.create { channel: 'BeatsChannel', topic: "#{Beatr.topicName()}" },
   connected: ->
-    @follow("#{Beatr.topicName()}")
-    console.log ("connected to #{gon.websocket_url}")
-    console.log ("following #{Beatr.topicName()}")
 
   received: (data) ->
-    console.log data
     Beatr.beats += 1
     if Beatr.resting
       Beatr.beat()
 
-  follow: (topic) ->
-    @perform 'follow', topic: topic
 
 
 $(document).ready ->
@@ -76,6 +70,4 @@ $(document).ready ->
 
   LittleBeatr.heart = $('#tiny-heart')
   LittleBeatr.beat()
-
-
 
