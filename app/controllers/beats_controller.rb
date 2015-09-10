@@ -5,9 +5,16 @@ class BeatsController < ApplicationController
   end
 
   def create
-    name = params[:id].gsub(' ', '-')
-    Broadcast.new(name.downcase).beat request.remote_ip
+    Broadcast.new(sanitized_name).beat request.remote_ip
     head :ok
+  end
+
+
+  private
+
+  def sanitized_name
+    name = params[:id].gsub(' ', '-')
+    name.downcase
   end
 end
 
