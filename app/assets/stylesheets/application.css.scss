@@ -86,6 +86,7 @@ code {
   margin: 40px;
 }
 
+
 .background-box {
   border-radius: 10px;
   height: 800px;
@@ -94,24 +95,89 @@ code {
   position: relative;
 }
 
-.instructions {
+.section {
+  margin-top: 20px;
+  padding: 0px 20px 20px 20px;
+}
+
+.bordered-section {
+  border: 1px $darker-pink solid;
+  border-radius: 5px;
+}
+
+.container {
   padding-top: 40px;
+}
+
+.instructions {
   padding-left: 40px;
   text-align: left;
+  float: left;
   width: 50%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 
   section {
-    margin-top: 20px;
-    padding: 0px 20px 20px 20px;
-    border: 1px $darker-pink solid;
-    border-radius: 5px;
-  }
-
-  h3 {
-    margin-left: 20px;
+    @extend .section;
+    @extend .bordered-section;
   }
 }
+
+.trending {
+  padding-left: 40px;
+  text-align: left;
+  width: 30%;
+  float: left;
+
+  section {
+    @extend .section;
+    @extend .bordered-section;
+  }
+
+  ul.trending-list {
+    list-style-type: none;
+    li {
+      padding: 5px 0px;
+    }
+
+    span.trending-count {
+      padding-right: 5px;
+    }
+  }
+
+  form.hot-form {
+    margin-right: 0px;
+    /* width: 150px; */
+  }
+
+  input[name='beat'] {
+    /* @extend .bordered-section; */
+    margin-left: 2px;
+    border: none;
+    height: 3em;
+    font-size: 14px;
+    padding: 2px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button[type='submit'] {
+    @extend .bordered-section;
+    background-color: $pink;
+    color: $darker-pink;
+    font-size: 14px;
+    width: 5em;
+    height: 3em;
+    border: 0px;
+
+    &:focus {
+      outline: none;
+      background-color: lighten($pink, 3%);
+    }
+  }
+}
+
 
 footer {
   padding-left: 20px;

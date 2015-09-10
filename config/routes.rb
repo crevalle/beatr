@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  get '/:id' => 'beats#show'
+  post '/' => 'home#hot'
+
+  get '/:id' => 'beats#show', as: :beats
   post '/:id' => 'beats#create'
 
 end

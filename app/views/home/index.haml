@@ -1,22 +1,38 @@
 %h3 Realtime heartbeats for anything.
 
-.instructions
-  %h3 How do I get started?
-  %section
-    %h4 Download the Beatr gem:
-    %p
-      %code.bash
-        $ gem install beatr
+.container
+  .instructions
+    %h3 How do I get started?
+    %section
+      %h4 Download the Beatr gem:
+      %p
+        %code.bash
+          $ gem install beatr
 
-  %section
-    %h4 Send your Beats:
-    %p
-      %code.ruby
-        Beatr.beat 'my-startup-signups'
+    %section
+      %h4 Send your Beats:
+      %p
+        %code.ruby
+          Beatr.beat 'my-startup-signups'
 
-  %section
-    %h4 Watch the Beats live at your URL:
-    %p
-      %code.http
-        http://beatr.io/my-startup-signups
+    %section
+      %h4 Watch the Beats live at your URL:
+      %p
+        %code.http
+          http://beatr.io/my-startup-signups
+
+  .trending
+    %h3 What's hot?
+    %section
+      - if @trending.blank?
+        %h4 You are.
+        = form_tag '/', class: 'hot-form' do
+          = text_field_tag :beat, nil, placeholder: 'type your name in here'
+          = button_tag 'Beat'
+      - else
+        %ul.trending-list
+          - @trending.each do |channel|
+            %li
+              %span.trending-count= channel.subscriber_count
+              = link_to channel.name, beats_path(channel.name)
 

@@ -2,6 +2,8 @@ class Channel < ActiveRecord::Base
 
   has_many :beats
 
+  scope :trending, -> { order subscriber_count: :desc }
+
   def self.fetch name
     return nil unless name.present?
 
