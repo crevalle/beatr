@@ -20,7 +20,7 @@ $darker-pink: #a94442;
 
 @mixin placeholder-font {
   font-family: Palatino;
-  font-size: 12pt;
+  font-size: 13pt;
 }
 
 ::-webkit-input-placeholder { @include placeholder-font }
