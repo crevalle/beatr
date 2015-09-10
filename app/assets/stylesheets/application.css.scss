@@ -18,6 +18,16 @@
 $pink: #F2DEDE;
 $darker-pink: #a94442;
 
+@mixin placeholder-font {
+  font-family: Palatino;
+  font-size: 12pt;
+}
+
+::-webkit-input-placeholder { @include placeholder-font }
+::-moz-placeholder { @include placeholder-font } /* firefox 19+ */
+:-ms-input-placeholder { @include placeholder-font } /* ie */
+input:-moz-placeholder { @include placeholder-font }
+
 body, html{
   height: 100%;
   text-align: center;
@@ -146,20 +156,19 @@ code {
 
   form.hot-form {
     margin-right: 0px;
-    /* width: 150px; */
   }
 
   input[name='beat'] {
-    /* @extend .bordered-section; */
+    @include placeholder-font;
     margin-left: 2px;
     border: none;
     height: 3em;
-    font-size: 14px;
     padding: 2px;
 
     &:focus {
       outline: none;
     }
+
   }
 
   button[type='submit'] {
