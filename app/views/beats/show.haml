@@ -3,9 +3,7 @@
   currently listening to #{@beat_name}...
 
 .beat-container
-  - if @beat_name == 'gorbypuff'
-    = image_tag 'gorbypuff.jpg', id: 'heart'
-  - else
-    = image_tag '8-bit-heart.png', id: 'heart'
+  - heart_image = @beat_name == 'gorbypuff' ? 'gorbypuff.jpg' : '8-bit-heart.png'
+  = image_tag heart_image, id: 'heart', size: '200x200'
 
 
