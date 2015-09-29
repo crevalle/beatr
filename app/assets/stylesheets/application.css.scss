@@ -17,6 +17,7 @@
 
 $pink: #F2DEDE;
 $darker-pink: #a94442;
+$white: #fff;
 
 @mixin placeholder-font {
   font-family: Palatino;
@@ -174,7 +175,7 @@ code {
   button[type='submit'] {
     @extend .bordered-section;
     font-family: Palatino;
-    background-color: $pink;
+    background-color: $white;
     color: $darker-pink;
     font-size: 18px;
     width: 4em;
