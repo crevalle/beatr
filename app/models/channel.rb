@@ -22,5 +22,9 @@ class Channel < ActiveRecord::Base
     save
   end
 
+  def recent_beats_count
+    beats.in_last(1.hour).count
+  end
+
 end
 

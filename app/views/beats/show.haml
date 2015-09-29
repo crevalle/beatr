@@ -1,5 +1,5 @@
 %h3
-  %span.subscriber-count
+  %span.subscriber-count= @channel.subscriber_count
   currently listening to #{@beat_name}...
 
 .beat-container
@@ -7,3 +7,6 @@
   = image_tag heart_image, id: 'heart', size: '200x200'
 
 
+%p
+  %span.recent-beats-count= @channel.recent_beats_count
+  beats in the last hour

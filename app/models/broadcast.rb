@@ -7,7 +7,10 @@ class Broadcast
   def beat from = nil
     Beat.create channel: channel, ip: from
 
-    payload = { channel: @name, type: 'beat', subscribers: { count: channel.subscriber_count } }
+    payload = { channel: @name,
+                type: 'beat',
+                recent_beats: channel.recent_beats_count,
+                subscribers: { count: channel.subscriber_count } }
 
     broadcast @name, payload
     broadcast 'admin', payload unless @name == 'admin'

@@ -56,13 +56,18 @@ App.beats = App.cable.subscriptions.create { channel: 'BeatsChannel', topic: "#{
   connected: ->
 
   countSpan: -> $('span.subscriber-count')
+  recentBeatsCountSpan: -> $('span.recent-beats-count')
 
   updateSubscriberCount: (count) ->
     @countSpan().html count
 
+  updateRecentBeatsCount: (count) ->
+    @recentBeatsCountSpan().html count
+
   received: (data) ->
-    @updateSubscriberCount(data.subscribers.count)
     if data.type == 'beat'
+      @updateSubscriberCount(data.subscribers.count)
+      @updateRecentBeatsCount(data.recent_beats)
       Beatr.beats += 1
       if Beatr.resting
         Beatr.beat()

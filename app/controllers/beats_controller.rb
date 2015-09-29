@@ -2,6 +2,7 @@ class BeatsController < ApplicationController
 
   def show
     @beat_name = params[:id]
+    @channel = Channel.find_or_create_by name: @beat_name
   end
 
   def create

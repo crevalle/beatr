@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    @trending = Channel.public.trending.limit(5)
+    @trending = Channel.visible.trending.limit(5)
   end
 
   def hot
