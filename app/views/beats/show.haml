@@ -1,5 +1,5 @@
 %h3
-  %span.subscriber-count= @channel.subscriber_count
+  %span.subscriber-count= handle_websocket_connection_delay @channel.subscriber_count
   currently listening to #{@beat_name}...
 
 .beat-container

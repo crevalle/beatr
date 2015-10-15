@@ -1,7 +1,7 @@
 class BeatsChannel < ApplicationCable::Channel
   def subscribed
-    puts "subscribed to #{description}"
     current_channel.add_subscriber!
+    puts "subscribed to #{description}"
     stream_from topic_name
     Broadcast.new(topic_name).update_count
   end

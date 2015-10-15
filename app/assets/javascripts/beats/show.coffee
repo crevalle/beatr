@@ -65,7 +65,10 @@ App.beats = App.cable.subscriptions.create { channel: 'BeatsChannel', topic: "#{
     @recentBeatsCountSpan().html count
 
   received: (data) ->
-    if data.type == 'beat'
+    if data.type == 'count'
+      @updateSubscriberCount(data.subscribers.count)
+
+    else if data.type == 'beat'
       @updateSubscriberCount(data.subscribers.count)
       @updateRecentBeatsCount(data.recent_beats)
       Beatr.beats += 1
