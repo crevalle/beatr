@@ -1,5 +1,7 @@
 class BeatsController < ApplicationController
 
+  before_filter :admin_auth, only: :dashboard
+
   def show
     @beat_name = params[:id]
     @channel = Channel.find_or_create_by name: @beat_name
