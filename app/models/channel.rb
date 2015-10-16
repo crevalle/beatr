@@ -5,6 +5,8 @@ class Channel < ActiveRecord::Base
   scope :visible, -> { where public: true }
   scope :hidden,  -> { where public: false }
 
+  before_destroy :remove_score!
+
   def self.fetch name
     return nil unless name.present?
 
@@ -55,14 +57,18 @@ class Channel < ActiveRecord::Base
 
   def move_to_private_list
     count = subscriber_count
-    $redis.zrem self.class.public_score_key, name
+    remove_score!
     $redis.zadd self.class.private_score_key, count, name
   end
 
   def move_to_public_list
     count = subscriber_count
-    $redis.zrem self.class.private_score_key, name
+    remove_score!
     $redis.zadd self.class.public_score_key, count, name
+  end
+
+  def remove_score!
+    $redis.zrem scores_set_key, name
   end
 
   def add_subscriber!
