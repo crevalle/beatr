@@ -31,8 +31,8 @@
           = button_tag 'Beat'
       - else
         %ul.trending-list
-          - @trending.each do |channel|
+          - @trending.each do |name, subscriber_count|
             %li
-              %span.trending-count= channel.subscriber_count
-              = link_to channel.name, beats_path(channel.name)
+              %span.trending-count= subscriber_count.to_i
+              = link_to name, beats_path(name)
 
