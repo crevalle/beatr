@@ -16,6 +16,10 @@ class Channel < ActiveRecord::Base
   def self.public_score_key; 'public_channel_scores'; end
   def self.private_score_key; 'private_channel_scores'; end
 
+  def self.top_beats
+    joins(:beats).select('channels.*, count(beats.id) as beats_count').group('channels.id').order('count(beats.id) desc')
+  end
+
   # Channel.trending                    # => public, non-zero scores
   # Channel.trending private: true      # => private, non-zero scores
   # Channel.trending include_zero: true # => public, zero scores
@@ -27,12 +31,21 @@ class Channel < ActiveRecord::Base
     min_score = options[:include_zero] ? '-inf' : 1
 
     opts = { with_scores: true, limit: [0, limit] }
-    $redis.zrevrangebyscore(key, '+inf', min_score, opts).to_h # => { 'channel_name' => score.0 }
+    results = $redis.zrevrangebyscore(key, '+inf', min_score, opts).to_h # => { 'channel_name' => score.0 }
+
+    if options[:channelize]
+      results.inject({}) do |memo, (name, score)|
+        memo[Channel.fetch(name)] = score.to_i
+        memo
+      end
+    else
+      results
+    end
   end
 
   def self.subscriber_counts
-    public_counts = trending.values.reduce(&:+)
-    private_counts = trending(private: true).values.reduce(&:+)
+    public_counts = trending.values.reduce(&:+) || 0
+    private_counts = trending(private: true).values.reduce(&:+) || 0
 
     { public: public_counts,
       private: private_counts,
@@ -88,6 +101,14 @@ class Channel < ActiveRecord::Base
 
   def recent_beats_count
     beats.in_last(1.hour).count
+  end
+
+  def last_beat_at
+    last_beat.try :created_at
+  end
+
+  def last_beat
+    beats.rev_cron.first
   end
 
   def private?

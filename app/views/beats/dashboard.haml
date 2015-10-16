@@ -1,0 +1,31 @@
+%h3
+  %span
+    .tiny-heart= image_tag 'gorbypuff.jpg', size: '20x20'
+  Dashboard
+
+.dashboard-section
+  %h3 Total Subscriber Counts
+  %section
+    %table
+      %th Public
+      %th Private
+      %th Total
+      %tr
+        %td.public-subscriber-count= @counts[:public].to_i
+        %td.private-subscriber-count= @counts[:private].to_i
+        %td.total-subscriber-count= @counts[:total].to_i
+
+  %h3 Channels by Subscriber Counts
+  %section
+    %h4 Public
+    = render partial: 'top_channel_table', locals: { channels: @public_trending }
+    %h4 Private
+    = render partial: 'top_channel_table', locals: { channels: @private_trending }
+
+.dashboard-section
+  %h3 Channels by Beat Counts
+  %section
+    %h4 Public
+    = render partial: 'top_beats_table', locals: { channels: @public_beats }
+    %h4 Private
+    = render partial: 'top_beats_table', locals: { channels: @private_beats }

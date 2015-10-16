@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   post '/' => 'home#hot'
 
+  get '/socks' => 'beats#dashboard', as: :dashboard
   get '/:id' => 'beats#show', as: :beats
   post '/:id' => 'beats#create'
 

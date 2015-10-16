@@ -1,0 +1,12 @@
+%table
+  %th Count
+  %th Name
+  %th Last Beat
+  %th Created At
+  - channels.each do |channel, count|
+    %tr
+      %td= count
+      %td= channel.name
+      %td= format_timestamp channel.last_beat_at
+      %td= format_timestamp channel.created_at
+

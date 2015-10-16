@@ -127,6 +127,18 @@ code {
   padding-top: 40px;
 }
 
+.dashboard-section {
+  text-align: left;
+  padding-left: 20px;
+  float: left;
+  width: 48%;
+  /* margin: 0 auto; */
+
+  section {
+    /* @extend .section; */
+    @extend .bordered-section;
+  }
+}
 .instructions {
   padding-left: 40px;
   text-align: left;
