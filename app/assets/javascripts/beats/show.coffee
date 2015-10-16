@@ -2,12 +2,10 @@
 #= require_self
 #= require_tree .
 
-@App = {}
 String::capitalize = -> @charAt(0).toUpperCase() + @slice(1)
 
 @path = window.location.pathname
 
-App.cable = Cable.createConsumer gon.websocket_url
 
 Beatr =
   resting: true,
@@ -52,32 +50,36 @@ LittleBeatr =
   afterBeat: =>
     LittleBeatr.beat()
 
-App.beats = App.cable.subscriptions.create { channel: 'BeatsChannel', topic: "#{Beatr.topicName()}" },
-  connected: ->
 
-  countSpan: -> $('span.subscriber-count')
-  recentBeatsCountSpan: -> $('span.recent-beats-count')
+Connect = ->
+  @App = {}
+  App.cable = Cable.createConsumer gon.websocket_url
+  App.beats = App.cable.subscriptions.create { channel: 'BeatsChannel', topic: "#{Beatr.topicName()}" },
+    connected: ->
 
-  updateSubscriberCount: (count) ->
-    @countSpan().html count
+    countSpan: -> $('span.subscriber-count')
+    recentBeatsCountSpan: -> $('span.recent-beats-count')
 
-  updateRecentBeatsCount: (count) ->
-    @recentBeatsCountSpan().html count
+    updateSubscriberCount: (count) ->
+      @countSpan().html count
 
-  received: (data) ->
-    if data.type == 'count'
-      @updateSubscriberCount(data.subscribers.count)
+    updateRecentBeatsCount: (count) ->
+      @recentBeatsCountSpan().html count
 
-    else if data.type == 'beat'
-      @updateSubscriberCount(data.subscribers.count)
-      @updateRecentBeatsCount(data.recent_beats)
-      Beatr.beats += 1
-      if Beatr.resting
-        Beatr.beat()
+    received: (data) ->
+      if data.type == 'count'
+        @updateSubscriberCount(data.subscribers.count)
 
-
+      else if data.type == 'beat'
+        @updateSubscriberCount(data.subscribers.count)
+        @updateRecentBeatsCount(data.recent_beats)
+        Beatr.beats += 1
+        if Beatr.resting
+          Beatr.beat()
 
 $(document).ready ->
+  if $('.beat-container').length > 0
+    Connect()
 
   Beatr.heart = $('#heart')
   Beatr.heart.click ->
