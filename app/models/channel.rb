@@ -86,11 +86,13 @@ class Channel < ActiveRecord::Base
 
   def add_subscriber!
     raise "can't modify subscribers without a name!" if name.blank?
+    Rails.logger.warn "[#{Time.now.utc}] total subscribers #{self.class.subscriber_counts[:total] + 1}"
     $redis.zincrby scores_set_key, 1, name
   end
 
   def remove_subscriber!
     raise "can't modify subscribers without a name!" if name.blank?
+    Rails.logger.warn "[#{Time.now.utc}] total subscribers #{self.class.subscriber_counts[:total] - 1}"
     $redis.zincrby scores_set_key, -1, name
   end
 
