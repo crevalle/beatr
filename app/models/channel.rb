@@ -69,15 +69,19 @@ class Channel < ActiveRecord::Base
   end
 
   def move_to_private_list
-    count = subscriber_count
-    remove_score!
-    $redis.zadd self.class.private_score_key, count, name
+    $redis.multi do
+      count = subscriber_count
+      remove_score!
+      $redis.zadd self.class.private_score_key, count, name
+    end
   end
 
   def move_to_public_list
-    count = subscriber_count
-    remove_score!
-    $redis.zadd self.class.public_score_key, count, name
+    $redis.multi do
+      count = subscriber_count
+      remove_score!
+      $redis.zadd self.class.public_score_key, count, name
+    end
   end
 
   def remove_score!
@@ -86,14 +90,16 @@ class Channel < ActiveRecord::Base
 
   def add_subscriber!
     raise "can't modify subscribers without a name!" if name.blank?
-    Rails.logger.warn "[#{Time.now.utc}] total subscribers #{self.class.subscriber_counts[:total] + 1}"
-    $redis.zincrby scores_set_key, 1, name
+    $redis.zincrby(scores_set_key, 1, name).tap do |count|
+      Rails.logger.info "[#{Time.now.utc}] total subscribers #{count}"
+    end
   end
 
   def remove_subscriber!
     raise "can't modify subscribers without a name!" if name.blank?
-    Rails.logger.warn "[#{Time.now.utc}] total subscribers #{self.class.subscriber_counts[:total] - 1}"
-    $redis.zincrby scores_set_key, -1, name
+    $redis.zincrby(scores_set_key, -1, name).tap do |count|
+      Rails.logger.info "[#{Time.now.utc}] total subscribers #{count}"
+    end
   end
 
   def subscriber_count
