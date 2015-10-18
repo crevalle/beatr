@@ -8,7 +8,7 @@ class Channel < ActiveRecord::Base
   before_destroy :remove_score!
 
   def self.fetch name
-    return nil unless name.present?
+    return nil if name.blank?
 
     find_or_create_by name: name
   end

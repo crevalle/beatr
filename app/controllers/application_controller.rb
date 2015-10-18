@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
 
   def admin_auth
-    access_password = 'holysmokes'
+    access_password = ENV['BEATR_ADMIN_PASSWORD']
 
     message = 'sorry bub'
     authenticate_or_request_with_http_basic message do |username, password|
